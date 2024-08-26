@@ -9,12 +9,21 @@
             font-size: 24px;
             margin-top: 20px;
         }
+        #rotatingElement {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            border-radius: 50%;
+            margin-top: 20px;
+            transition: transform 0.1s linear;
+        }
     </style>
 </head>
 <body>
     <h1>Get Speech Frequency</h1>
     <button id="startButton">Start Recording</button>
     <div id="frequency">Frequency will be displayed here</div>
+    <div id="rotatingElement"></div>
 
     <script>
         let audioContext, analyser, source, dataArray, stream;
@@ -67,8 +76,21 @@
             // Update the frequency display
             document.getElementById('frequency').textContent = `Peak Frequency: ${frequency.toFixed(2)} Hz`;
 
+            // Update the rotation speed
+            updateRotationSpeed(frequency);
+
             // Call getFrequency every 100 ms
-            setTimeout(getFrequency, 10);
+            setTimeout(getFrequency, 100);
+        }
+
+        function updateRotationSpeed(frequency) {
+            const rotatingElement = document.getElementById('rotatingElement');
+            
+            // Calculate rotation speed: you can adjust this formula as needed
+            const rotationSpeed = frequency * 0.1; // Adjust multiplier for desired effect
+
+            // Apply rotation
+            rotatingElement.style.transform = `rotate(${rotationSpeed}deg)`;
         }
     </script>
 </body>
