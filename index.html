@@ -15,7 +15,15 @@
             background-color: lightblue;
             border-radius: 50%;
             margin-top: 20px;
-            transition: transform 0.1s linear;
+            animation: rotate 1s linear infinite;
+        }
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -86,11 +94,15 @@
         function updateRotationSpeed(frequency) {
             const rotatingElement = document.getElementById('rotatingElement');
             
-            // Calculate rotation speed: you can adjust this formula as needed
-            const rotationSpeed = frequency * 0.1; // Adjust multiplier for desired effect
+            // Calculate the animation duration based on frequency
+            // Example: frequency range to animation duration range
+            const minDuration = 0.5; // Minimum duration (seconds)
+            const maxDuration = 2; // Maximum duration (seconds)
+            const maxFrequency = 2000; // Max frequency for scaling duration
+            const animationDuration = Math.max(minDuration, maxDuration - (frequency / maxFrequency) * (maxDuration - minDuration));
 
-            // Apply rotation
-            rotatingElement.style.transform = `rotate(${rotationSpeed}deg)`;
+            // Apply rotation animation speed
+            rotatingElement.style.animationDuration = `${animationDuration}s`;
         }
     </script>
 </body>
